@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: orders-out
+        input:
+          destination: orders-in
+      rabbit:
+        bindings:
+          input:
+            consumer:
+              exchangeType: direct
+  rabbitmq:
+    host: 192.168.123.176
+    port: 5672
+  application:
+    name: account-service
+management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.123.204:8761/eureka/
+  appInfo:
+    replicate:
+      interval: 3
+    initial:
+      replicate:
+        time: 3
+  instance:
+    statusPageUrlPath: /actuator
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 3
+    healthCheckUrlPath: /actuator/health
