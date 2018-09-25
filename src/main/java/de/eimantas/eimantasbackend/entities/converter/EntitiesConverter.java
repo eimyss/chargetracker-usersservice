@@ -9,35 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class EntitiesConverter {
 
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private ModelMapper modelMapper;
 
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public User getUserFromDTO(UserDTO dto) {
+  public User getUserFromDTO(UserDTO dto) {
 
-        if (dto != null) {
-            User user = modelMapper.map(dto, User.class);
-            return user;
-
-        }
-        logger.info("dto is null");
-        return null;
-
+    if (dto != null) {
+      User user = modelMapper.map(dto, User.class);
+      return user;
 
     }
+    logger.info("dto is null");
+    return null;
 
-    public UserDTO getDtoFromUser(User user) {
 
-        if (user != null) {
-            UserDTO dto = modelMapper.map(user, UserDTO.class);
-            return dto;
+  }
 
-        }
-        logger.info("user is null");
-        return null;
+  public UserDTO getDtoFromUser(User user) {
+
+    if (user != null) {
+      UserDTO dto = modelMapper.map(user, UserDTO.class);
+      return dto;
+
     }
+    logger.info("user is null");
+    return null;
+  }
 
 }

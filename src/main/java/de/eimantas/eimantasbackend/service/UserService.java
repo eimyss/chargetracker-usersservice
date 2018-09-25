@@ -12,21 +12,21 @@ import javax.inject.Inject;
 @Service
 public class UserService {
 
-    @Inject
-    SecurityService securityService;
-    @Inject
-    UserRepository userRepository;
+  @Inject
+  SecurityService securityService;
+  @Inject
+  UserRepository userRepository;
 
 
-    @Inject
-    EntitiesConverter converter;
+  @Inject
+  EntitiesConverter converter;
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public User getUserFromID(String keycloackId) {
+  public User getUserFromID(String keycloackId) {
 
-        return userRepository.findByKeycloackId(keycloackId);
+    return userRepository.findByKeycloackId(keycloackId);
 
-    }
+  }
 }

@@ -20,52 +20,52 @@ import java.security.Principal;
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/user")
 public class UserController {
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Inject
-    private EntitiesConverter entitiesConverter;
+  @Inject
+  private EntitiesConverter entitiesConverter;
 
-    @Inject
-    private UserService userService;
+  @Inject
+  private UserService userService;
 
-    @Inject
-    private SecurityService securityService;
+  @Inject
+  private SecurityService securityService;
 
-    @Inject
-    private EntitiesConverter converter;
+  @Inject
+  private EntitiesConverter converter;
 
-    public UserController() {
+  public UserController() {
 
-    }
+  }
 
-    @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*")
-    public UserDTO getUserById(Principal principal, @PathVariable String id) {
+  @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @CrossOrigin(origins = "*")
+  public UserDTO getUserById(Principal principal, @PathVariable String id) {
 
-        User user = userService.getUserFromID(id);
+    User user = userService.getUserFromID(id);
 
-        return converter.getDtoFromUser(user);
+    return converter.getDtoFromUser(user);
 
-    }
+  }
 
-    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*")
-    public UserDTO getCurrentUser(Principal principal) {
+  @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+  @CrossOrigin(origins = "*")
+  public UserDTO getCurrentUser(Principal principal) {
 
-        KeycloakAuthenticationToken userAuth = (KeycloakAuthenticationToken) principal;
-        String userId = securityService.getUserIdFromPrincipal(userAuth);
-        User user = userService.getUserFromID(userId);
-        return converter.getDtoFromUser(user);
+    KeycloakAuthenticationToken userAuth = (KeycloakAuthenticationToken) principal;
+    String userId = securityService.getUserIdFromPrincipal(userAuth);
+    User user = userService.getUserFromID(userId);
+    return converter.getDtoFromUser(user);
 
-    }
+  }
 
 
-    @ExceptionHandler(NonExistingEntityException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    ErrorDesc handleException(NonExistingEntityException e) {
-        return new ErrorDesc(e.getMessage());
-    }
+  @ExceptionHandler(NonExistingEntityException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public @ResponseBody
+  ErrorDesc handleException(NonExistingEntityException e) {
+    return new ErrorDesc(e.getMessage());
+  }
 
 
 }

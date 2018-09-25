@@ -29,50 +29,50 @@ import java.util.Collections;
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class UserBackendApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(UserBackendApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(UserBackendApplication.class, args);
+  }
 
-    @Bean
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
-    }
-
-
-    @Bean
-    public Sampler defaultSampler() {
-        return Sampler.ALWAYS_SAMPLE;
-    }
-
-    @Bean
-    public RequestContextListener requestContextListener() {
-        return new RequestContextListener();
-    }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
-
-    @Bean
-    public EntitiesConverter entitiesConverter() {
-        return new EntitiesConverter();
-    }
+  @Bean
+  public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+    return new SecurityEvaluationContextExtension();
+  }
 
 
-    @Bean
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public FilterRegistrationBean simpleCorsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("*"));
-        config.setAllowedMethods(Collections.singletonList("*"));
-        config.setAllowedHeaders(Collections.singletonList("*"));
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
-    }
+  @Bean
+  public Sampler defaultSampler() {
+    return Sampler.ALWAYS_SAMPLE;
+  }
+
+  @Bean
+  public RequestContextListener requestContextListener() {
+    return new RequestContextListener();
+  }
+
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
+
+  @Bean
+  public EntitiesConverter entitiesConverter() {
+    return new EntitiesConverter();
+  }
+
+
+  @Bean
+  @SuppressWarnings( {"unchecked", "rawtypes"})
+  public FilterRegistrationBean simpleCorsFilter() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.setAllowedOrigins(Collections.singletonList("*"));
+    config.setAllowedMethods(Collections.singletonList("*"));
+    config.setAllowedHeaders(Collections.singletonList("*"));
+    source.registerCorsConfiguration("/**", config);
+    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return bean;
+  }
 
 }

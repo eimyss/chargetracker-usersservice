@@ -43,80 +43,79 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ActiveProfiles("test")
 public class UserControllerTest {
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+  private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    private MockMvc mockMvc;
+  private MockMvc mockMvc;
 
-    @SuppressWarnings("rawtypes")
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+  @SuppressWarnings("rawtypes")
+  private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    @Autowired
-    private EntitiesConverter entitiesConverter;
-
-
-    private User usr;
-
-    private KeycloakAuthenticationToken mockPrincipal;
+  @Autowired
+  private EntitiesConverter entitiesConverter;
 
 
-    // @Autowired
-    // private ExpenseController controller;
+  private User usr;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-
-        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().orElse(null);
-
-        assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
-    }
-
-    @Before
-    public void setup() throws Exception {
+  private KeycloakAuthenticationToken mockPrincipal;
 
 
-        userRepository.deleteAll();
-        // auth stuff
-        mockPrincipal = Mockito.mock(KeycloakAuthenticationToken.class);
-        Mockito.when(mockPrincipal.getName()).thenReturn("test");
+  // @Autowired
+  // private ExpenseController controller;
 
-        KeycloakPrincipal keyPrincipal = Mockito.mock(KeycloakPrincipal.class);
-        RefreshableKeycloakSecurityContext ctx = Mockito.mock(RefreshableKeycloakSecurityContext.class);
+  @Autowired
+  private WebApplicationContext webApplicationContext;
 
-        User usr = TestUtils.getUser();
+  @Autowired
+  void setConverters(HttpMessageConverter<?>[] converters) {
 
-        AccessToken token = Mockito.mock(AccessToken.class);
-        Mockito.when(token.getSubject()).thenReturn("KEY-1");
-        Mockito.when(ctx.getToken()).thenReturn(token);
-        Mockito.when(keyPrincipal.getKeycloakSecurityContext()).thenReturn(ctx);
-        Mockito.when(mockPrincipal.getPrincipal()).thenReturn(keyPrincipal);
+    this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
+        .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter).findAny().orElse(null);
 
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
-        userRepository.save(usr);
-    }
+    assertNotNull("the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter);
+  }
 
-    @Test
-    public void getUser() throws Exception {
-        // given(controller.principal).willReturn(allEmployees);
-        mockMvc.perform(get("/user/get/" + "KEY-1").principal(mockPrincipal)).andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print()).andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name", is("test@test.de")));
-    }
+  @Before
+  public void setup() throws Exception {
 
 
+    userRepository.deleteAll();
+    // auth stuff
+    mockPrincipal = Mockito.mock(KeycloakAuthenticationToken.class);
+    Mockito.when(mockPrincipal.getName()).thenReturn("test");
 
-    @Test
-    public void getCurrentUser() throws Exception {
-        // given(controller.principal).willReturn(allEmployees);
-        mockMvc.perform(get("/user/me").principal(mockPrincipal)).andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print()).andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name", is("test@test.de")));
-    }
+    KeycloakPrincipal keyPrincipal = Mockito.mock(KeycloakPrincipal.class);
+    RefreshableKeycloakSecurityContext ctx = Mockito.mock(RefreshableKeycloakSecurityContext.class);
+
+    User usr = TestUtils.getUser();
+
+    AccessToken token = Mockito.mock(AccessToken.class);
+    Mockito.when(token.getSubject()).thenReturn("KEY-1");
+    Mockito.when(ctx.getToken()).thenReturn(token);
+    Mockito.when(keyPrincipal.getKeycloakSecurityContext()).thenReturn(ctx);
+    Mockito.when(mockPrincipal.getPrincipal()).thenReturn(keyPrincipal);
+
+    this.mockMvc = webAppContextSetup(webApplicationContext).build();
+    userRepository.save(usr);
+  }
+
+  @Test
+  public void getUser() throws Exception {
+    // given(controller.principal).willReturn(allEmployees);
+    mockMvc.perform(get("/user/get/" + "KEY-1").principal(mockPrincipal)).andExpect(status().isOk())
+        .andDo(MockMvcResultHandlers.print()).andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.name", is("test@test.de")));
+  }
+
+
+  @Test
+  public void getCurrentUser() throws Exception {
+    // given(controller.principal).willReturn(allEmployees);
+    mockMvc.perform(get("/user/me").principal(mockPrincipal)).andExpect(status().isOk())
+        .andDo(MockMvcResultHandlers.print()).andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.name", is("test@test.de")));
+  }
 }

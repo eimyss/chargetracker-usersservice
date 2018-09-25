@@ -34,55 +34,55 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @Transactional
 public class UserServiceTest {
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+  private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    private MockMvc mockMvc;
-
-
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private UserService userService;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+  private MockMvc mockMvc;
 
 
-    private User usr;
+  @Inject
+  private UserRepository userRepository;
+
+  @Inject
+  private UserService userService;
+
+  @Autowired
+  private WebApplicationContext webApplicationContext;
 
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
-    private KeycloakAuthenticationToken mockPrincipal;
-
-    @Before
-    public void setup() throws Exception {
+  private User usr;
 
 
-        userRepository.deleteAll();
-        // auth stuff
-        mockPrincipal = Mockito.mock(KeycloakAuthenticationToken.class);
-        Mockito.when(mockPrincipal.getName()).thenReturn("test@test.de");
+  private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+  private KeycloakAuthenticationToken mockPrincipal;
+
+  @Before
+  public void setup() throws Exception {
 
 
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
-
-        usr = TestUtils.getUser();
-
-        userRepository.save(usr);
-
-    }
+    userRepository.deleteAll();
+    // auth stuff
+    mockPrincipal = Mockito.mock(KeycloakAuthenticationToken.class);
+    Mockito.when(mockPrincipal.getName()).thenReturn("test@test.de");
 
 
-    @Test
-    public void getUserByKeyCloackId() throws Exception {
+    this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        User usr = userService.getUserFromID("KEY-1");
-        assertThat(usr).isNotNull();
-        assertThat(usr.getName()).isEqualTo("test@test.de");
+    usr = TestUtils.getUser();
 
-    }
+    userRepository.save(usr);
+
+  }
+
+
+  @Test
+  public void getUserByKeyCloackId() throws Exception {
+
+    User usr = userService.getUserFromID("KEY-1");
+    assertThat(usr).isNotNull();
+    assertThat(usr.getName()).isEqualTo("test@test.de");
+
+  }
 
 
 }

@@ -17,27 +17,27 @@ import java.time.LocalDate;
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    private LocalDate joindate;
-    private @NonNull
-    @Column(unique = true)
-    String name;
-    private @NonNull
-    String username;
-    private String email;
-    private String keycloackId;
+  @Id
+  @GeneratedValue
+  private Long id;
+  private LocalDate joindate;
+  private @NonNull
+  @Column(unique = true)
+  String name;
+  private @NonNull
+  String username;
+  private String email;
+  private String keycloackId;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", joindate=" + joindate +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", keycloackId='" + keycloackId + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "User{" +
+        "id=" + id +
+        ", joindate=" + joindate +
+        ", name='" + name + '\'' +
+        ", username='" + username + '\'' +
+        ", email='" + email + '\'' +
+        ", keycloackId='" + keycloackId + '\'' +
+        '}';
+  }
 }
