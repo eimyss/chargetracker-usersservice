@@ -38,3 +38,5 @@ eureka:
     healthCheckUrlPath: /actuator/health
 logging:
   file: myapplication.log
+server:
+  port: 8290
