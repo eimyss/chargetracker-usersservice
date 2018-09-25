@@ -25,7 +25,7 @@ public class UserService {
 
 
   public User getUserFromID(String keycloackId) {
-
+    logger.info("getting user convert for id: " + keycloackId);
     return userRepository.findByKeycloackId(keycloackId);
 
   }

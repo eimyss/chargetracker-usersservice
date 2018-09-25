@@ -22,8 +22,6 @@ import java.security.Principal;
 public class UserController {
   private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  @Inject
-  private EntitiesConverter entitiesConverter;
 
   @Inject
   private UserService userService;
@@ -41,7 +39,7 @@ public class UserController {
   @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   @CrossOrigin(origins = "*")
   public UserDTO getUserById(Principal principal, @PathVariable String id) {
-
+    logger.info("getting user for id: " + id);
     User user = userService.getUserFromID(id);
 
     return converter.getDtoFromUser(user);

@@ -19,16 +19,8 @@ public class PostConstructBean implements ApplicationRunner {
 
   private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  private String testUserName = "test";
-
-  @Autowired
-  UserRepository userRepository;
-
   @Autowired
   private Environment environment;
-
-  @Autowired
-  private SecurityService securityService;
 
   private void preFillData() {
 

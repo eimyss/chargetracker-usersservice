@@ -11,9 +11,6 @@ import java.util.Date;
 public class DateHelper {
 
 
-  private static org.slf4j.Logger logger = LoggerFactory.getLogger(DateHelper.class);
-
-
   //testing can be tricky...‚
   public static LocalDateTime getEndOfWeek(int weekNumber) {
 
