@@ -8,7 +8,7 @@ spring:
   application:
     name: account-service
   datasource:
-    url: jdbc:mysql://192.168.123.157:3306/user?useSSL=false
+    url: jdbc:mysql://192.168.123.157:3306/usersdb?useSSL=false
     username: spring
     password: expenses
     driverClassName: com.mysql.jdbc.Driver
