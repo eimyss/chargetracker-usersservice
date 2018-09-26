@@ -8,7 +8,7 @@ spring:
   application:
     name: account-service
   datasource:
-    url: jdbc:mysql://192.168.123.157:3306/expenses?useSSL=false
+    url: jdbc:mysql://192.168.123.157:3306/user?useSSL=false
     username: spring
     password: expenses
     driverClassName: com.mysql.jdbc.Driver
@@ -39,4 +39,4 @@ eureka:
 logging:
   file: myapplication.log
 server:
-  port: 8290
+  port: 8280

@@ -11,6 +11,7 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -54,6 +55,28 @@ public class UserController {
     String userId = securityService.getUserIdFromPrincipal(userAuth);
     User user = userService.getUserFromID(userId);
     return converter.getDtoFromUser(user);
+
+  }
+
+  @PostMapping("/save")
+  @Transactional
+  @CrossOrigin(origins = "*")
+  public UserDTO saveAccount(Principal principal, @RequestBody UserDTO userdto) throws NonExistingEntityException {
+
+    logger.info("creating user: " + userdto.toString());
+    KeycloakAuthenticationToken user = (KeycloakAuthenticationToken) principal;
+    String userId = securityService.getUserIdFromPrincipal(user);
+
+    logger.info("The request is fort user: " + userId);
+
+    User usr = converter.getUserFromDTO(userdto);
+    usr.setKeycloackId(userId);
+
+    User saved = userService.saveUser(usr);
+
+    logger.info("user is saved: " + usr);
+
+    return converter.getDtoFromUser(saved);
 
   }
 

@@ -22,12 +22,16 @@ public class User {
   private Long id;
   private LocalDate joindate;
   private @NonNull
-  @Column(unique = true)
   String name;
   private @NonNull
+  @Column(unique = true)
   String username;
-  private String email;
-  private String keycloackId;
+  private @NonNull
+  @Column(unique = true)
+  String email;
+  private @NonNull
+  @Column(unique = true)
+  String keycloackId;
 
   @Override
   public String toString() {

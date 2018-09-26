@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
   public User findByName(String name);
+  public User findByUsername(String name);
 
   public User findByKeycloackId(String keycloackId);
 

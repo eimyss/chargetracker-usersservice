@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 
 
 @Service
@@ -27,6 +28,14 @@ public class UserService {
   public User getUserFromID(String keycloackId) {
     logger.info("getting user convert for id: " + keycloackId);
     return userRepository.findByKeycloackId(keycloackId);
+
+  }
+
+  public User saveUser(User usr) {
+
+    logger.info("saaving user: " + usr.toString());
+    usr.setJoindate(LocalDate.now());
+    return userRepository.save(usr);
 
   }
 }

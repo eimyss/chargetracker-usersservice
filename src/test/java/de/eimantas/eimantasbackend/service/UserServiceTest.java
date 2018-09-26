@@ -84,5 +84,23 @@ public class UserServiceTest {
 
   }
 
+  @Test
+  public void testSaveUser() throws Exception {
+    User userNew = TestUtils.getUser();
+    userNew.setJoindate(null);
+    userNew.setName("saved");
+    userNew.setKeycloackId("KEYID-2");
+    userNew.setUsername("saved");
+    userNew.setEmail("test@saved.de");
+    User saved = userService.saveUser(userNew);
+    assertThat(saved).isNotNull();
+    assertThat(saved.getJoindate()).isNotNull();
+    assertThat(saved.getId()).isNotNull();
+    assertThat(saved.getName()).isEqualTo(userNew.getName());
+    User usrretrieved = userRepository.findByUsername("saved");
+    logger.info(usrretrieved.toString());
+
+  }
+
 
 }
