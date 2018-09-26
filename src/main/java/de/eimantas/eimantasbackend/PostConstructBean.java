@@ -1,7 +1,7 @@
 package de.eimantas.eimantasbackend;
 
-import de.eimantas.eimantasbackend.repo.UserRepository;
-import de.eimantas.eimantasbackend.service.SecurityService;
+import de.eimantas.eimantasbackend.entities.User;
+import de.eimantas.eimantasbackend.service.UserService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -22,7 +22,20 @@ public class PostConstructBean implements ApplicationRunner {
   @Autowired
   private Environment environment;
 
+  @Autowired
+  private UserService service;
+
   private void preFillData() {
+
+    logger.info("Filling data:");
+    User usr = new User();
+    usr.setKeycloackId("Keycloack-ID1-Filled");
+    usr.setEmail("test@filled.de");
+    usr.setUsername("prefilled-user");
+    usr.setName("preffiled user");
+
+    User saved = service.saveUser(usr);
+    logger.info("saved user: " + saved.toString());
 
   }
 
