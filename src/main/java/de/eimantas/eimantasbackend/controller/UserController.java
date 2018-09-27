@@ -66,14 +66,10 @@ public class UserController {
     logger.info("creating user: " + userdto.toString());
     KeycloakAuthenticationToken user = (KeycloakAuthenticationToken) principal;
     String userId = securityService.getUserIdFromPrincipal(user);
-
     logger.info("The request is fort user: " + userId);
-
     User usr = converter.getUserFromDTO(userdto);
     usr.setKeycloackId(userId);
-
     User saved = userService.saveUser(usr);
-
     logger.info("user is saved: " + usr);
 
     return converter.getDtoFromUser(saved);

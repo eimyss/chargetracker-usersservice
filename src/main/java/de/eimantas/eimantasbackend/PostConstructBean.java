@@ -29,7 +29,7 @@ public class PostConstructBean implements ApplicationRunner {
 
     logger.info("Filling data:");
     User usr = new User();
-    usr.setKeycloackId("Keycloack-ID1-Filled");
+    usr.setKeycloackId("ee9fb974-c2c2-45f8-b60e-c22d9f00273f");
     usr.setEmail("test@filled.de");
     usr.setUsername("prefilled-user");
     usr.setName("preffiled user");
