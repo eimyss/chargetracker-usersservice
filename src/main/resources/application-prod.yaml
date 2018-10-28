@@ -1,3 +1,6 @@
+keycloak:
+  realm: expenses
+  resource: expenses-app
 spring:
   application:
     name: users-service
