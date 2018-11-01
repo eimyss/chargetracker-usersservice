@@ -2,8 +2,11 @@ package de.eimantas.eimantasbackend;
 
 import brave.sampler.Sampler;
 import de.eimantas.eimantasbackend.entities.converter.EntitiesConverter;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -29,6 +32,9 @@ import java.util.Collections;
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class UserBackendApplication {
 
+  @Value("${spring.application.name}")
+  private String appname;
+
   public static void main(String[] args) {
     SpringApplication.run(UserBackendApplication.class, args);
   }
@@ -38,6 +44,10 @@ public class UserBackendApplication {
     return new SecurityEvaluationContextExtension();
   }
 
+  @Bean
+  MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
+    return registry -> registry.config().commonTags("application", appname);
+  }
 
   @Bean
   public Sampler defaultSampler() {
